@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{admin/layouts/principal/principalLayout}" th:with="greeting='Hello!'">
+
+<th:block layout:fragment="html_head">
+
+	<link th:href="${@helper.assets('css/noticias.style.css')}" rel="stylesheet" />
+	<script th:src="${@helper.assets('jsc/noticias/noticias.jquery.js')}"></script>
+	
+	<script type="text/javascript" th:src="${@helper.assets('jsc/moment.min.js')}"></script>
+	<script type="text/javascript" th:src="${@helper.assets('jsc/daterangepicker.min.js')}"></script>
+	<link rel="stylesheet" type="text/css" th:href="${@helper.assets('css/daterangepicker.min.css')}" />
+			
+	<!-- include summernote css/js -->
+	<link th:href="${@helper.assets('css/summernote.css')}" rel="stylesheet">
+	<script th:src="${@helper.assets('jsc/summernote.min.js')}"></script>
+		
+	
+	
+	<style>
+		.ui-state-highlight { border:1px dotted #ccc }
+		.tabs-lg-alternate.card-header>.nav .nav-link{padding: 1.1rem 0; }
+		.modal-full {
+			    min-width: 80%;
+			    margin: 0 auto;
+			    margin-top:5vh;
+			}
+		.modal-content {height: 100%;}
+		.modal-body {min-height: 450px;}
+		.t-label {width:80px;}
+		.app-inner-layout__content em {margin-left:80px;}
+		.u-lnk {    border: 0;  background: transparent;  padding: 0;}
+	</style>
+
+	  
+</th:block>
+
+
+<body>
+
+	<div layout:fragment="content" class="form-article">
+	
+
+        
+                    <div class="app-inner-layout">
+                    
+                    
+                    
+                        <div class="app-inner-layout__header bg-heavy-rain">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div class="page-title-icon">
+                                            <i class="metismenu-icon pe-7s-ribbon"></i>
+                                        </div>
+                                        <div>Noticias
+                                            <div class="page-title-subheading">Creación/Edición de Noticias
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+
+                                    
+                                    <div class="page-title-actions">
+
+                                        <div class="d-inline-block">
+                                            <a th:href="${@helper.baseUrl('noticias')}" class="btn-shadow btn btn-secondary">
+                                                <span class="btn-icon-plus pr-2">
+                                                    <i class="fa fa-arrow-left fa-w-20"></i>
+                                                </span>
+                                                ATRÁS
+                                            </a>
+                                                
+                                                <button type="button" class="btn-shadow btn btn-success btn-guardar-noticia">
+                                                <span class="btn-icon-plus pr-2">
+                                                    <i class="fa fa-save fa-w-20"></i>
+                                                </span>
+                                                GUARDAR
+                                            </button>
+
+                                        </div>
+                                    </div>    </div>
+                            </div>                </div>
+                            
+                            
+                            
+                            <form method="post" action="" id="form-noticia" class="form-noticia">
+                            <input type="hidden" id="id" name="id"  th:value="${noticia?.id}">
+                        <div class="app-inner-layout__wrapper">
+                            <div class="app-inner-layout__content card">
+                                <div>
+                                    <div class="app-inner-layout__top-pane">
+
+									<div class="mt-2" style="width:100%">
+									
+										<div class="input-group">
+										    <div class="input-group-prepend"><span class="input-group-text t-label">Título</span></div>
+										    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Ingrese el título de la noticia" th:value="${noticia?.titulo}">
+										</div>
+										<!-- 
+										<div class="input-group" style="margin-top: 10px;">
+										    <span class="input-group-text u-lnk">https://www.munisantanita.gob.pe/noticias/</span>
+										    <span class="input-group-text u-lnk"><a href="">usco-intensifican-busqueda-de-mujer-desaparecida-tras-caida-de-mototaxi-a-rio-nndc-noticia</a></span>
+										    <span class="input-group-text u-lnk" style="padding-left:15px"><a href="">[Editar]</a></span>
+										    <input type="text" class="form-control form-control-sm d-none">
+										</div>
+										 -->
+										<br />
+										
+										<div class="input-group">
+										    <div class="input-group-prepend"><span class="input-group-text t-label">Subtítulo</span></div>
+										    <input type="text" name="subtitulo" id="subtitulo" class="form-control" th:value="${noticia?.subtitulo}">
+										</div>                    
+									   <br />
+										
+										<div class="input-group">
+										    <div class="input-group-prepend"><span class="input-group-text t-label">Resumen</span></div>
+										    <textarea name="resumen" id="resumen" class="form-control" th:text="${noticia?.resumen}"></textarea>
+										</div>         
+										     
+										
+
+									</div>
+			                            
+                                       
+
+                                    </div>
+                                    <div class="bg-white" style="padding: 2px 25px;">
+                                           <div id="summernote" th:utext="${noticia?.contenido}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="app-inner-layout__sidebar card">
+                                <ul class="nav flex-column">
+
+
+                                    <li class="pt-3 nav-item-header nav-item">Categoría</li>
+
+                                    <li class="nav-item-btn text-center nav-item">
+								      <select class="form-control" name="categoria_id" id="categoria_id">
+								      <option value="">Seleccione categoría</option>
+								     	 <option  th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nombre}" th:selected="${noticia !=null and cat.id == noticia.categoria_id}"></option>
+								      </select>
+                                    </li>
+                                    <li class="nav-item-divider nav-item"></li>
+                                    <li class="pt-3 nav-item-header nav-item">Url Youtube</li>
+
+                                    <li class="nav-item-btn text-center nav-item">
+										<input type="text" class="form-control" id="url_youtube" name="url_youtube" placeholder="Ingrese URL Youtube" th:value="${noticia?.url_youtube}">
+                                    </li>
+                                    <li class="nav-item-divider nav-item"></li>
+                                    <li class="nav-item-header nav-item">Imagen Destacada</li>
+                                    <li class="nav-item-btn text-center nav-item">
+                                    
+                                    
+                                    <div th:switch="${noticia != null and noticia.portada_archivo != null}"> 
+									  <img th:case="${true}" th:src="${@constant.URL_SERVER_CDN_URL + @constant.DIR_UPLOAD_NOTICIAS_GALERIA  + noticia.portada_archivo}" class="img-noticia img-thumbnail">
+									  <img th:case="*" th:src="${@helper.assets('img/imagen-no-disponible.jpg')}" class="img-noticia img-thumbnail">
+									</div>
+
+                                        
+                                    <button type="button" class="mt-1 btn-wide btn-pill btn btn-secondary btn-sm btn-explorar">Galería de imágenes</button>
+                                        
+                                        
+                                    </li>
+                                    <li class="nav-item-divider nav-item"></li>
+                                    
+                                    <li class="pt-3 nav-item-header nav-item">Duplicar</li>
+
+                                    <li class="nav-item-btn text-center nav-item">
+											<div class="form-check form-check-inline"><label class="form-check-label"><input type="checkbox" class="form-check-input check-duplicado" th:disabled="!${evento?.id}" th:evid="${evento?.id}"> Desea duplicar evento?</label></div>
+                                    </li>
+                                    
+                                    <li class="nav-item-divider nav-item"></li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    		
+                    		</form>
+                    		</div>
+            
+                
+
+	
+
+	
+	</div>
+	
+	
+	
+	
+	
+
+<div layout:fragment="content_footer">
+		<div class="modal fade form-noticia-modal" tabindex="-1" role="dialog" aria-labelledby="form-noticia-modal" aria-hidden="true">
+	    <div class="modal-dialog modal-lg modal-full">
+	    
+	    
+	    <div class="row">
+	    
+    
+	
+	    	                
+
+	    	    	<div class="col-sm">
+	    
+	    
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="title-noticia-modal">Galería</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                </button>
+	            </div>
+
+	            <div class="modal-body">
+
+														<!-- <div class="msj-v"><span>Debe crear la noticia para adjuntar imágenes en la galería</span></div> -->
+														<div id="drop_file_zone" ondragenter="dragEnter(event)"  ondragleave="dragLeave(event)" ondrop="upload_file(event)" ondragover="dragEnter(event)" style="position: relative;">
+														
+														  <input type="file" id="selectfile" multiple accept="image/x-png, image/gif, image/jpeg, image/bmp, image/jpg">
+														  <div id="drag_upload_file">
+														    <p class="msj-drag" onclick="file_explorer();"><span>Click aquí para examinar archivos</span></p>
+														    
+														    <!-- Arrastre el archivo de la imagen o click aquí -->
+														    						
+														    <div class="gallery-c" style="position:absolute;top:0;">
+
+		<figure th:each="img : ${noticia?.imagenes}" class="gallery-news ui-state-default" th:item-token="${img.token}" th:item-file="${img.archivo_url}">
+		        	<img th:src="${@constant.URL_SERVER_CDN_URL + @constant.DIR_UPLOAD_NOTICIAS_GALERIA + img.archivo_url}" /><a class="mb-2 mr-2 btn btn-success isportada" th:classappend="${noticia.fotos_portada_id == img.id} ? 'd-block' : 'd-none'"><i class="fa fa-check"></i> <span class="badge badge-success badge-dot badge-dot-lg"> </span></a>
+		        	<figcaption>
+		        	<button type="button" class="btn btn-primary btn-portada float-left"><span th:if="${noticia.fotos_portada_id == img.id}"><i class="fa fa-check"></i></span> <span th:unless="${noticia.fotos_portada_id == img.id}"><i class="fa fa-plus-circle"></i> Portada</span></button>
+		        		<p class="icon-links"><a href="" class="lnk-image-delete"><span class="fa fa-times-circle"></span></a></p>
+		        	</figcaption>
+		</figure>
+
+
+
+														    </div>
+														    
+														  </div>
+														</div>
+
+	            
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="mb-2 mr-2 btn-icon btn-pill btn btn-outline-primary" onclick="file_explorer();">Explorar imagen</button>
+					<button type="button" class="mb-2 mr-2 btn-icon btn-pill btn btn-success" data-dismiss="modal"><span class="btn-icon-plus pr-2"><i class="fa fa-save fa-w-20"></i></span> ACEPTAR</button>
+	            </div>
+	        </div>
+	    
+	    
+	     	    
+	      </div>
+	    
+	    
+	    
+	    	    
+	      </div>
+	    
+
+	    
+	    
+	    
+	    
+	    </div>
+	    
+	    
+	</div>
+	<!-- /Form modal -->
+	
+</div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+
+<script src="resoources/../login.js"></script>
+</head>
+<body>
+
+<div th:fragment="taller_form">
+
+		<div class="modal fade form-taller-modal" id="form-taller-modal" tabindex="-1" role="dialog" aria-labelledby="form-taller-modal" aria-hidden="true">
+		    <div class="modal-dialog modal-lg modal-full">
+			    	        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="title-taller-modal">Información de la Categoría</h5>
+		            </div>
+	
+					<form method="post" id="form-taller" name="form-taller">
+				            <div class="modal-body">
+								<input type="hidden" name="id" id="id">
+			                	<div class="position-relative row form-group"><label for="nombre" class="col-sm-2 col-form-label">Nombre de la Categoría</label>
+			                    	<div class="col-sm-10"><input name="nombre" id="nombre" placeholder="Ingrese el nombre de la categor�a" type="text" class="form-control"></div>
+			                    </div>
+			                    
+			                    <div class="position-relative row form-group"><label for="slug" class="col-sm-2 col-form-label">Url corta</label>
+								<div class="form-inline col-sm-10">
+											<div class="position-relative  input-group " style="width:100%;">
+												<input type="text" class="form-control input-group-addon col-sm-7" value="https://www.munisantanita.gob.pe/noticias/categoria/"  disabled style="font-size: 0.925rem;padding-right: 0;background: #f1f1f1;">
+												<input name="slug" id="slug" type="text" class="form-control input-group-addon col-sm-5" style="font-size: 0.9rem;padding-left: 1px;">
+											</div>
+								</div>
+	
+	
+										   </div>                    
+			 
+				            </div>
+				           
+				            <div class="modal-footer">
+				                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				                <button type="submit" class="btn btn-success btn-crear-categoria"><i class="fa fa-plus-circle"></i> Crear Categoría</button>
+				            </div>
+	                </form>
+		            
+		        </div>
+			</div>
+		</div>
+	
+</div>
+
+
+</body>
+</html>

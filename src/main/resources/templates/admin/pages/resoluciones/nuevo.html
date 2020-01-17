@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorate="~{admin/layouts/principal/principalLayout}" 
+	th:with="modulo='resoluciones',submodulo='categorias'">
+
+<th:block layout:fragment="html_head">
+
+    <link th:href="${@helper.assets('css/noticias.style.css')}" rel="stylesheet" />
+    <script th:src="${@helper.assets('jsc/resoluciones/resoluciones.jquery.js')}"></script>
+
+    <script type="text/javascript" th:src="${@helper.assets('jsc/moment.min.js')}"></script>
+    <script type="text/javascript" th:src="${@helper.assets('jsc/daterangepicker.min.js')}"></script>
+    <link rel="stylesheet" type="text/css" th:href="${@helper.assets('css/daterangepicker.min.css')}" />
+
+    <style>
+        .ui-state-highlight {
+            border: 1px dotted #ccc
+        }
+        
+        .tabs-lg-alternate.card-header>.nav .nav-link {
+            padding: 1.1rem 0;
+        }
+        
+        .modal-full {
+            min-width: 80%;
+            margin: 0 auto;
+            margin-top: 5vh;
+        }
+        
+        .modal-content {
+            height: 100%;
+        }
+        
+        .modal-body {
+            min-height: 450px;
+        }
+        
+        .t-label {
+            width: 120px;
+        }
+        
+        .app-inner-layout__content em {
+            margin-left: 80px;
+        }
+        
+        .u-lnk {
+            border: 0;
+            background: transparent;
+            padding: 0;
+        }
+    </style>
+
+
+</th:block>
+
+
+<body>
+
+    <div layout:fragment="content" class="form-article">
+
+        <div class="app-inner-layout">
+
+            <div class="app-inner-layout__header bg-heavy-rain">
+                <div class="app-page-title">
+                    <div class="page-title-wrapper">
+                        <div class="page-title-heading">
+                            <div class="page-title-icon">
+                                <i class="metismenu-icon pe-7s-ribbon"></i>
+                            </div>
+                            <div>
+                                Resoluciones
+                                <div class="page-title-subheading">Creación/Edición de Resoluciones</div>
+                            </div>
+                        </div>
+
+                        <div class="page-title-actions">
+                            <div class="d-inline-block">
+                                <a th:href="${@helper.baseUrl('resoluciones')}" class="btn-shadow btn btn-secondary">
+                                    <span class="btn-icon-plus pr-2">
+                                        <i class="fa fa-arrow-left fa-w-20"></i>
+                                    </span> ATRÁS
+                                </a>
+                                <button type="button" class="btn-shadow btn btn-success btn-guardar-resolucion">
+                                    <span class="btn-icon-plus pr-2">
+                                        <i class="fa fa-save fa-w-20"></i>
+                                    </span>
+                                    GUARDAR
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <form method="post" action="" id="form-resolucion" class="form-resolucion">
+                <input type="hidden" id="id" name="id" th:value="${ resolucion?.id }">
+                <div class="app-inner-layout__wrapper">
+                    <div class="app-inner-layout__content card">
+                        <div>
+                            <div class="app-inner-layout__top-pane">
+
+                                <div class="mt-2" style="width:100%">
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text t-label">Nombre</span></div>
+                                        <input type="text" name="detalle" id="detalle" class="form-control" minlength="5" maxlength="100" placeholder="Ingrese el nombre" th:value="${ resolucion?.detalle }">
+                                    </div>
+                                    <br />
+                                    
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text t-label">Nro. Resolucion</span></div>
+                                        <input type="number" name="nro_resolucion" id="nro_resolucion" class="form-control" minlength="1" maxlength="100" placeholder="Ingrese el nro de resolución" th:value="${ resolucion?.nro_resolucion }">
+                                    </div>
+                                    <br />
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text t-label">Año</span></div>
+                                        <select class="form-control" name="anio" id="anio" aria-invalid="false">
+                                            <option th:each="i: ${# numbers.sequence( #dates.year(#dates.createNow()), 2008 )}" th:value="${ i }" th:text="${ i }" th:selected="${ i == resolucion?.anio }"></option>
+                                        </select>
+                                    </div>
+                                    <br />
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text t-label">Emisión</span></div>
+                                        <input type="date" name="fecha_emision" id="fecha_emision" class="form-control" th:value="${ resolucion?.fecha_emision }">
+                                    </div>
+                                    <br>
+
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text t-label">Sumilla</span></div>
+                                        <textarea name="sumilla" id="sumilla" class="form-control" rows="5" th:text="${ resolucion?.sumilla }"></textarea>
+                                    </div>
+                                    <br>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="app-inner-layout__sidebar card">
+                        <ul class="nav flex-column">
+
+                            <li class="pt-3 nav-item-header nav-item">Tipo</li>
+                            <li class="nav-item-btn text-center nav-item">
+                                <select class="form-control" name="tipo_id" id="tipo_id" aria-invalid="false">
+                                    <option value="">Seleccione Tipo</option>
+                                    <option th:each="t : ${ tipo }" th:value="${ t.id }" th:text="${ t.nombre }" th:data=" ${ t.sigla } " th:selected="${ resolucion != null and t.id.toString() == resolucion?.tipo_id.toString() }"></option>
+                                </select>
+                            </li>
+
+                            <li class="nav-item-divider nav-item"></li>
+                            
+                            <li class="pt-3 nav-item-header nav-item">Area</li>
+                            <li class="nav-item-btn text-center nav-item">
+                                <select class="form-control" name="area_id" id="area_id" aria-invalid="false">
+                                    <option value="">Seleccione Area</option>
+                                    <option th:each="t : ${ area }" th:value="${ t.id }" th:text="${ t.nombre }" th:data=" ${ t.sigla } " th:selected="${ resolucion != null and t.id.toString() == resolucion?.area_id.toString() }"></option>
+                                </select>
+                            </li>
+
+                            <li class="nav-item-divider nav-item"></li>
+
+                            <li class="pt-3 nav-item-header nav-item">Electronico</li>
+                            <li class="nav-item-btn text-center nav-item">
+                                <select class="form-control" name="electronico" id="electronico" aria-invalid="false">
+                                    <option value="0" th:selected="${ resolucion != null and '0' == resolucion?.electronico.toString() }">No</option>
+                                    <option value="1" th:selected="${ resolucion != null and '1' == resolucion?.electronico.toString() }">Si</option>
+                                </select>
+                            </li>
+
+                            <li class="nav-item-divider nav-item"></li>
+
+                            <li class="nav-item-header nav-item">Archivo</li>
+                            <li class="nav-item-btn text-center nav-item">
+                                <input type="file" class="d-none" id="selectfile">
+                    
+                                <div th:switch="${ resolucion != null and resolucion.archivo != null and resolucion.archivo != '' }">
+                                    <div class="content-file" th:case="${true}">
+                                        <p>
+                                            <a th:href="${ @helper.apiRecursos('web/pdf/resoluciones/' + resolucion.anio + '/' + resolucion.archivo) }" target="_BLANK" th:text=" ${ resolucion.archivo } "></a>
+                                        </p>
+                                        <iframe type="application/pdf" th:src="${ @helper.apiRecursos('web/pdf/resoluciones/' + resolucion.anio + '/' + resolucion.archivo) }" class="img-resoluciones" style="height: 250px;width: 100%;" th:token="${resolucion.archivo_token}" th:file="${resolucion.archivo}"></iframe>
+                                    </div>
+                                    <img th:case="*" th:src="${ @helper.assets('img/imagen-no-disponible.jpg') }" class="img-resoluciones img-thumbnail">
+                                </div>
+                                
+                                <button type="button" th:class="'mt-1 btn-resoluciones-img-eliminar btn-wide btn-pill btn btn-danger btn-sm' + ( !(${ resolucion != null and resolucion.archivo != null and resolucion.archivo != '' }) ? ' d-none' : '' )">Eliminar archivo</button>
+                                <button type="button" th:class="'mt-1 btn-resoluciones-img-subir btn-wide btn-pill btn btn-secondary btn-sm' + ( ${ resolucion != null and resolucion.archivo != null and resolucion.archivo != '' } ? ' d-none' : '' )" onclick="file_explorer();">Explorar archivo</button>
+                            </li>
+
+                            <li class="nav-item-divider nav-item"></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div layout:fragment="content_footer"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Autentificación</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="Municipalidad de Santa Anita">
+    <meta name="msapplication-tap-highlight" content="no">
+	<style>
+	.slide-bk {background-image: url('[[${@helper.assets('img/municipalidad.jpg')}]]');background-position-x: center;opacity: .2 !important;}
+	</style>
+	<link th:href="${@helper.assets('css/styles.css')}" rel="stylesheet"></head>
+
+<body>
+
+<div class="app-container app-theme-white body-tabs-shadow">
+        <div class="app-container">
+            <div class="h-100">
+                <div class="h-100 no-gutters row">
+                    <div class="d-none d-lg-block col-lg-4">
+                        <div class="slider-light">
+                            <div class="slick-slider">
+                                <div>
+                                    <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-plum-plate" tabindex="-1">
+                                        <div class="slide-img-bg slide-bk"></div>
+                                        <div class="slider-content"><h3>Municipalidad de Santa Anita</h3>
+                                            <p>Panel administrativo del portal web</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div layout:fragment="content" class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-8"></div>
+
+                    
+                </div>
+            </div>
+        </div>
+</div>
+
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{admin/layouts/principal/principalLayout}" th:with="modulo='usuarios',submodulo='roles'">
+
+
+
+
+<th:block layout:fragment="html_head" th:inline="javascript" >
+	<link th:href="${@helper.assets('css/usuarios.css')}" rel="stylesheet" />
+	<script th:src="${@helper.assets('jsc/usuarios/roles.jquery.js')}"></script>
+	
+	<script>
+		const USR_PERMISOS = /*[[${modulos}]]*/ "";
+
+
+
+	
+		
+	</script>
+	
+</th:block>
+
+
+<body>
+
+	<div layout:fragment="content" class="form-article">
+
+        
+                    <div class="app-inner-layout">
+                    
+                   
+                        <div class="app-inner-layout__header bg-heavy-rain">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div class="page-title-icon">
+                                            <i class="metismenu-icon pe-7s-users"></i>
+                                        </div>
+                                        <div>Roles de usuario
+                                            <div class="page-title-subheading">Gestión de roles y permisos
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="page-title-actions">
+
+                                        <div class="d-inline-block">
+                                            <a th:href="${@helper.baseUrl('usuarios/roles')}" class="btn-shadow btn btn-secondary">
+                                                <span class="btn-icon-plus pr-2">
+                                                    <i class="fa fa-arrow-left fa-w-20"></i>
+                                                </span>
+                                                ATRÁS
+                                            </a>
+                                                
+                                                <button type="button" class="btn-shadow btn btn-success btn-guardar-rol">
+                                                <span class="btn-icon-plus pr-2">
+                                                    <i class="fa fa-save fa-w-20"></i>
+                                                </span>
+                                                GUARDAR
+                                            </button>
+
+                                        </div>
+                                    </div>    </div>
+                            </div>                </div>
+                            
+                            
+                            <form method="post" action="" id="form-rol" class="form-rol">
+                            <input type="hidden" id="id" name="id"  th:value="${rol?.id}">
+                        <div class="app-inner-layout__wrapper">
+                            <div class="app-inner-layout__content card">
+                                <div>
+                                    <div class="app-inner-layout__top-pane">
+
+<table class="mb-12 table table-striped">
+    <thead>
+      <tr>
+        <th>Módulo</th>
+        <th>Sección</th>
+        <th>Visualizar</th>
+        <th>Crear</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="mod4">
+        <th rowspan=2>Noticias
+	        <input type="hidden" name="modulos[0][modulo]" value="NOT">
+			<input type="hidden" name="modulos[0][modulo_id]:number" value="4">
+		</th>
+		
+        <td>Noticias (Artículo)
+	        <input type="hidden" name="modulos[0][permisos][0][submodulo]" value="NOT">
+			<input type="hidden" name="modulos[0][permisos][0][submodulo_id]:number" value="5">
+        </td>
+        <td><input type="hidden" name="modulos[0][permisos][0][acciones][0][nombre]" value="C"><input type="checkbox" name="modulos[0][permisos][0][acciones][0][valor]:boolean" /></td>
+        <td><input type="hidden" name="modulos[0][permisos][0][acciones][1][nombre]" value="R"><input type="checkbox" name="modulos[0][permisos][0][acciones][1][valor]:boolean" /></td>
+        <td><input type="hidden" name="modulos[0][permisos][0][acciones][2][nombre]" value="U"><input type="checkbox" name="modulos[0][permisos][0][acciones][2][valor]:boolean" /></td>
+        <td><input type="hidden" name="modulos[0][permisos][0][acciones][3][nombre]" value="D"><input type="checkbox" name="modulos[0][permisos][0][acciones][3][valor]:boolean" /></td>
+      </tr>
+      <tr>
+        <td>Categorías
+	        <input type="hidden" name="modulos[0][permisos][1][submodulo]" value="CAT">
+			<input type="hidden" name="modulos[0][permisos][1][submodulo_id]:number" value="6">
+        </td>
+        <td><input type="hidden" name="modulos[0][permisos][1][acciones][0][nombre]" value="C"><input type="checkbox" name="modulos[0][permisos][1][acciones][0][valor]:boolean" /></td>
+        <td><input type="hidden" name="modulos[0][permisos][1][acciones][1][nombre]" value="R"><input type="checkbox" name="modulos[0][permisos][1][acciones][1][valor]:boolean" /></td>
+        <td><input type="hidden" name="modulos[0][permisos][1][acciones][2][nombre]" value="U"><input type="checkbox" name="modulos[0][permisos][1][acciones][2][valor]:boolean" /></td>
+        <td><input type="hidden" name="modulos[0][permisos][1][acciones][3][nombre]" value="D"><input type="checkbox" name="modulos[0][permisos][1][acciones][3][valor]:boolean" /></td>
+      </tr>
+
+
+
+      <tr class="sup" id="mod5">
+        <th rowspan=2>Eventos
+	        <input type="hidden" name="modulos[1][modulo]" value="EVT">
+			<input type="hidden" name="modulos[1][modulo_id]:number" value="5">
+        </th>
+        <td>Eventos (Artículo)
+	        <input type="hidden" name="modulos[1][permisos][0][submodulo]" value="EVT">
+			<input type="hidden" name="modulos[1][permisos][0][submodulo_id]:number" value="7">
+        </td>
+        
+        <td><input type="hidden" name="modulos[1][permisos][0][acciones][0][nombre]" value="C"><input type="checkbox" name="modulos[1][permisos][0][acciones][0][valor]:boolean" /></td>
+        <td><input type="hidden" name="modulos[1][permisos][0][acciones][1][nombre]" value="R"><input type="checkbox" name="modulos[1][permisos][0][acciones][1][valor]:boolean" /></td>
+        <td><input type="hidden" name="modulos[1][permisos][0][acciones][2][nombre]" value="U"><input type="checkbox" name="modulos[1][permisos][0][acciones][2][valor]:boolean" /></td>
+        <td><input type="hidden" name="modulos[1][permisos][0][acciones][3][nombre]" value="D"><input type="checkbox" name="modulos[1][permisos][0][acciones][3][valor]:boolean" /></td>
+      </tr>
+      <tr>
+        <td>Categorías
+	        <input type="hidden" name="modulos[1][permisos][1][submodulo]" value="CAT">
+			<input type="hidden" name="modulos[1][permisos][1][submodulo_id]:number" value="8">
+        </td>
+        <td><input type="hidden" name="modulos[1][permisos][1][acciones][0][nombre]" value="C"><input type="checkbox" name="modulos[1][permisos][1][acciones][0][valor]:boolean" /></td>
+        <td><input type="hidden" name="modulos[1][permisos][1][acciones][1][nombre]" value="R"><input type="checkbox" name="modulos[1][permisos][1][acciones][1][valor]:boolean" /></td>
+        <td><input type="hidden" name="modulos[1][permisos][1][acciones][2][nombre]" value="U"><input type="checkbox" name="modulos[1][permisos][1][acciones][2][valor]:boolean" /></td>
+        <td><input type="hidden" name="modulos[1][permisos][1][acciones][3][nombre]" value="D"><input type="checkbox" name="modulos[1][permisos][1][acciones][3][valor]:boolean" /></td>
+      </tr>
+      
+      
+      
+
+      <tr class="sup">
+        <th rowspan="5">Talleres</th>
+        <td>Talleres (Artículo)</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Categorías</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Temporadas</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Secciones</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Alumnos</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      
+      
+      
+      
+            <tr class="sup">
+        <th rowspan=2>Usuarios</th>
+        <td>Usuarios (Artículo)</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Roles</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      
+      
+      
+      
+      
+     
+       <tr class="sup">
+        <th rowspan=2>Documentos<br />Municipales</th>
+        <td>Documentos (Artículo)</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      <tr>
+        <td>Categorías</td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+        <td><input type="checkbox"></td>
+      </tr>
+      
+      
+    </tbody>
+  </table>    
+      
+                                       
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="app-inner-layout__sidebar card">
+                                <ul class="nav flex-column">
+
+
+                                    <li class="pt-3 nav-item-header nav-item">Nombre de rol</li>
+
+                                    <li class="nav-item-btn text-center nav-item">
+								      <input class="form-control" th:value="${rol?.nombre}" name="nombre" id="nombre" placeholder="Ingrese nombre">
+                                    </li>
+                                    <li class="nav-item-divider nav-item"></li>
+                                    <li class="nav-item-header nav-item">Imagen Destacada</li>
+                                    <li class="nav-item-btn text-center nav-item">
+                                    <input type="file" class="d-none" id="selectfile">
+                                    
+                                    
+                                    <div th:switch="${rol != null and rol.avatar != null}"> 
+									  <img th:case="${true}"  th:src="${@constant.PRINCIPAL_URL + 'data' + @constant.DIR_UPLOAD_USUARIOS_AVATARES  + rol.avatar}" id="img-avatar" class="img-avatar img-thumbnail">
+									  <img th:case="*" th:src="${@helper.assets('img/imagen-no-disponible.jpg')}" id="img-avatar" class="img-avatar img-thumbnail">
+									</div>
+
+		                              <input type="hidden" id="avatar_id" name="avatar_id" th:value="${rol?.avatar_id}">
+
+<style>
+	.dropdown-menu .dropdown-item {
+	    display: block;
+	    float: left;
+	    width: calc(100% / 4);
+	    overflow: hidden;
+	    text-align: center;
+	    clear: initial;
+	    padding: .2rem;
+	}
+	
+	.dropdown-menu .dropdown-item img{width:63%}
+	
+</style>
+
+<div class="btn-group">
+  <button type="button" class="mt-1 btn-evento-subir btn-wide btn-pill btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Seleccionar avatar
+  </button>
+  <div class="dropdown-menu dropdown-menu-right list-avatars">
+
+    <a th:each="avatar : ${avatares}" class="dropdown-item" href="#">
+    	<img th:src="${@constant.PRINCIPAL_URL + 'data' + @constant.DIR_UPLOAD_USUARIOS_AVATARES  + avatar.archivo}" th:name="${avatar.id}" class="">
+    </a>
+
+  </div>
+</div>         
+                                        
+                                        
+                                        
+                                        
+                                    </li>
+                                    <li class="nav-item-divider nav-item"></li>
+                                    
+                                    <li class="pt-3 nav-item-header nav-item">Duplicar</li>
+                                    <li class="nav-item-btn text-center nav-item">
+											<div class="form-check form-check-inline"><label class="form-check-label"><input type="checkbox" class="form-check-input check-duplicado" th:disabled="!${evento?.id}" th:evid="${evento?.id}"> Desea duplicar el rol?</label></div>
+
+
+                                    </li>
+                                    
+                                    <li class="nav-item-divider nav-item"></li>
+
+                                    
+                                    
+
+                                </ul>
+                            </div>
+                        </div>
+                    		
+                    		</form>
+                    		</div>
+            
+                
+
+	
+
+	
+	</div>
+	
+	
+	
+	
+	
+	<div layout:fragment="content_footer">
+	
+	<script>
+		var mod = $.parseJSON(USR_PERMISOS);
+		for(var m in mod.modulos){
+			var M = mod.modulos[m];
+			var el = $('#mod'+M.modulo_id);
+			
+			for(var p in M.permisos){
+	
+				var A = M.permisos[p].acciones;
+				for(var a in A){
+					var ac = A[a];
+					var pd = $('input[name="modulos['+m+'][permisos]['+p+'][acciones]['+a+'][valor]:boolean"]').parent();
+						pd.find('.ui-switcher').attr('aria-checked', ac.valor);
+						pd.find('input[type="checkbox"]').prop('checked', ac.valor);
+		        }
+				 console.log('-------------------');
+		    }
+			 console.log('-----------=============bbbb=============-----------');
+		}
+	</script>
+	
+	
+	
+		
+	</div>
+
+</body>
+</html>

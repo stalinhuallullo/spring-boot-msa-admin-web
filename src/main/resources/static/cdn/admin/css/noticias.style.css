@@ -1,0 +1,282 @@
+#drop_file_zone {
+    background-color: #EEE; 
+    border: #999 5px dashed;
+	height:100%;
+    padding: 8px;
+    font-size: 18px;
+}
+
+.msj-v {
+    position: absolute;
+    background: white;
+    z-index: 100;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+}
+.msj-v span {
+	margin: auto;
+    text-align: center;
+	font-size: 15px;
+}
+#drop_file_zone:hover {
+    border-color: #696969 !important;
+}
+.border-a {
+    border-color: #3f6ad8 !important;
+}
+
+#drag_upload_file {
+	height:100%;
+  margin:0 auto;
+}
+
+#drop_file_zone #selectfile {
+  display: none;
+}
+
+
+.gallery ul {margin: 0;
+    list-style: none;
+    padding: 0;}
+	    .gallery ul li {
+width: calc(100% / 4);
+    display: inline-block;
+    margin: 0;
+    margin-right: -5px;
+    padding: 3px;
+    position:relative;
+}
+
+.gallery ul li i{position: absolute;
+    width: 30px;
+    height: 30px;
+    background: red;
+    z-index: 10;
+    right: 5px;
+    top: 5px;}
+
+.gallery ul li img {width:100%}
+
+.gallery-c {
+	position: relative;
+	margin: 0 auto;
+	xpadding: 1em 0 4em;
+	max-width: 1000px;
+	list-style: none;
+}
+
+
+.gallery-c figure {
+position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    width: calc(100% / 4);
+    display: inline-block;
+    margin: 0;
+    margin-right: -5px;
+    padding:3px;
+    height: 130px;
+}
+
+
+#drag_upload_file .msj-drag {
+    font-family: sans-serif;
+    font-size: 23px;
+    color: #d0d0d0;
+    width: 100%;
+    cursor: pointer;
+    height: 100%;
+        display: flex;
+}
+#drag_upload_file .msj-drag span{
+	    margin: auto;
+    text-align: center;
+}
+.gallery-c figure .isportada{
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    color: white !important;
+    display:none;
+}
+
+
+
+
+
+.gallery-c figure img {
+	position: relative;
+	display: block;
+	min-height: 100%;
+	max-width: 100%;
+		background: rgba(255, 255, 255);
+}
+
+.gallery-c figure figcaption {
+	padding: 2em;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 1.25em;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	
+}
+
+.gallery-c figure figcaption::before,
+.gallery-c figure figcaption::after {
+	pointer-events: none;
+}
+
+.gallery-c figure figcaption,
+.gallery-c figure figcaption > a {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+
+
+
+.gallery-c figure h2 {
+	word-spacing: -0.15em;
+	font-weight: 300;
+}
+
+
+.gallery-c figure p {
+	margin: 0;
+}
+
+.gallery-c figure p {
+	letter-spacing: 1px;
+	font-size: 68.5%;
+}
+
+
+
+
+
+
+
+figure.gallery-news figcaption {
+	top: auto;
+	bottom: 0;
+	padding: 0.7em;
+	height: 2.9em;
+	background: rgba(255, 255, 255, 0.9);
+	color: #3c4a50;
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	-webkit-transform: translate3d(0,100%,0);
+	transform: translate3d(0,100%,0);
+}
+
+figure.gallery-news h2 {
+	float: left;
+}
+
+figure.gallery-news p.icon-links a {
+	float: right;
+	color: #3c4a50;
+	font-size: 1.4em;
+}
+
+figure.gallery-news:hover p.icon-links a:hover,
+figure.gallery-news:hover p.icon-links a:focus {
+	color: #252d31;
+}
+
+
+figure.gallery-news p.icon-links a {
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	-webkit-transform: translate3d(0,200%,0);
+	transform: translate3d(0,200%,0);
+}
+
+
+figure.gallery-news p.icon-links a span::before {
+	display: inline-block;
+	xxpadding: 8px 10px;
+
+}
+
+figure.gallery-news:hover figcaption,
+figure.gallery-news:hover button,
+figure.gallery-news:hover p.icon-links a {
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+figure.gallery-news:hover button {
+	-webkit-transition-delay: 0.05s;
+	transition-delay: 0.05s;
+}
+
+figure.gallery-news:hover p.icon-links a:nth-child(3) {
+	-webkit-transition-delay: 0.1s;
+	transition-delay: 0.1s;
+}
+
+figure.gallery-news:hover p.icon-links a:nth-child(2) {
+	-webkit-transition-delay: 0.15s;
+	transition-delay: 0.15s;
+}
+
+figure.gallery-news:hover p.icon-links a:first-child {
+	-webkit-transition-delay: 0.2s;
+	transition-delay: 0.2s;
+}
+
+
+/*
+figure.gallery-news:hover {
+  -webkit-transition: background .3s ease-in;
+          transition: background .3s ease-in;
+  -webkit-transition-delay: .3s; 
+          transition-delay: .3s;
+ 	background: #000;
+ 	opacity:1;
+}
+*/
+
+figure.gallery-news:hover img {opacity:.7}
+	 
+	 
+
+		    
+@media only screen and (max-width: 1290px) {
+	.grid figure {
+	    width: calc(100% / 3);
+	}
+}	
+     
+	    
+@media only screen and (max-width: 1100px) {
+	.grid figure {
+	    width: calc(100% / 2);
+	}
+}	
+ 
+@media only screen and (max-width: 1000px) {
+	.modal-full {    min-width: 99%;}
+
+} 
+@media only screen and (max-width: 700px) {
+	.grid figure {
+	    width: 100%;
+	}
+}
+	      
+	      
+	      
+	      
+	      
+	      
+	      
+	      

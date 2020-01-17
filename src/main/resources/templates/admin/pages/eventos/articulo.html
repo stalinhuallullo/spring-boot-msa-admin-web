@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{admin/layouts/principal/principalLayout}" th:with="greeting='Hello!'">
+
+
+<th:block layout:fragment="html_head">
+	
+<script th:src="${@helper.assets('jsc/eventos/eventos.jquery.js')}"></script>
+		
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+		
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+
+
+
+	
+</th:block>
+
+
+<body>
+
+	<div layout:fragment="content" class="form-article">
+	
+
+        
+                    <div class="app-inner-layout">
+                    
+                    
+                    
+                        <div class="app-inner-layout__header bg-heavy-rain">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div class="page-title-icon">
+                                            <i class="metismenu-icon pe-7s-date"></i>
+                                        </div>
+                                        <div>Eventos
+                                            <div class="page-title-subheading">Creación/Edición de eventos y activadades
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+
+
+                                    
+                                    <div class="page-title-actions">
+
+                                        <div class="d-inline-block">
+                                            <a th:href="${@helper.baseUrl('eventos')}" class="btn-shadow btn btn-secondary">
+                                                <span class="btn-icon-plus pr-2">
+                                                    <i class="fa fa-arrow-left fa-w-20"></i>
+                                                </span>
+                                                ATRÁS
+                                            </a>
+                                                
+                                                <button type="button" class="btn-shadow btn btn-success btn-guardar-evento">
+                                                <span class="btn-icon-plus pr-2">
+                                                    <i class="fa fa-save fa-w-20"></i>
+                                                </span>
+                                                GUARDAR
+                                            </button>
+
+                                        </div>
+                                    </div>    </div>
+                            </div>                </div>
+                            
+                            
+                            <form method="post" action="" id="form-evento" class="form-evento">
+                            <input type="hidden" id="id" name="id"  th:value="${evento?.id}">
+                        <div class="app-inner-layout__wrapper">
+                            <div class="app-inner-layout__content card">
+                                <div>
+                                    <div class="app-inner-layout__top-pane">
+
+									<div class="mt-2" style="width:100%">
+									
+										<div class="input-group">
+										    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-globe"></i></span></div>
+										    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Ingrese el título del evento" th:value="${evento?.titulo}">
+										</div>
+										
+
+										<div class="input-group mt-2">
+										    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-calendar-alt"></i></span></div>
+										    <input type="text" name="rango_fechas" id="rango_fechas" class="form-control" th:value="${evento} != null ?: ${evento.fecha_inicio +' - '+evento.fecha_final}">
+										</div>         										
+
+										<div class="input-group mt-2">
+										    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-map-marker"></i></span></div>
+										    <input type="text" name="direccion" id="direccion" placeholder="Ingrese dirección del evento" class="form-control" th:value="${evento?.direccion}">
+										</div>                    
+									                 
+										<!-- 
+										<div class="input-group">
+										    <div class="input-group-prepend"><span class="input-group-text url-txt">https://www.munisantanita.gob.pe/evento/</span></div>
+										    <input type="text" class="form-control">
+										</div> -->
+									</div>
+			                            
+                                       
+
+                                    </div>
+                                    <div class="bg-white" style="padding: 2px 25px;">
+
+          
+                                              	<div id="summernote" th:utext="${evento?.descripcion}"></div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="app-inner-layout__sidebar card">
+                                <ul class="nav flex-column">
+
+
+                                    <li class="pt-3 nav-item-header nav-item">Categoría</li>
+
+                                    <li class="nav-item-btn text-center nav-item">
+								      <select class="form-control" name="categoria_id" id="categoria_id">
+								      <option value="">Seleccione categoría</option>
+								     	 <option  th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nombre}" th:selected="${evento !=null and cat.id == evento.categoria_id}"></option>
+								      </select>
+                                    </li>
+                                    <li class="nav-item-divider nav-item"></li>
+                                    <li class="nav-item-header nav-item">Imagen Destacada</li>
+                                    <li class="nav-item-btn text-center nav-item">
+                                    <input type="file" class="d-none" id="selectfile">
+                                    
+                                    
+                                    <div th:switch="${evento != null and evento.archivo != null}"> 
+									  <img th:case="${true}" th:src="${@constant.URL_SERVER_CDN_URL + @constant.DIR_UPLOAD_EVENTOS_GALERIA  + evento.archivo}" class="img-evento img-thumbnail" th:token="${evento.archivo_token}"  th:file="${evento.archivo}">
+									  <img th:case="*" th:src="${@helper.assets('img/imagen-no-disponible.jpg')}" class="img-evento img-thumbnail">
+									</div>
+
+                                                                            	
+                                        <button type="button" th:class="'mt-1 btn-evento-img-eliminar btn-wide btn-pill btn btn-danger btn-sm' + (!(${evento?.archivo}) ? ' d-none' : '')">Eliminar imagen</button>
+                                        
+                                        <button type="button" th:class="'mt-1 btn-evento-img-subir btn-wide btn-pill btn btn-secondary btn-sm' + (${evento?.archivo} ? ' d-none' : '')" onclick="file_explorer();">Explorar imagen</button>
+                                        
+                                        
+                                    </li>
+                                    <li class="nav-item-divider nav-item"></li>
+                                    
+                                    <li class="pt-3 nav-item-header nav-item">Duplicar</li>
+
+                                    <li class="nav-item-btn text-center nav-item">
+											<div class="form-check form-check-inline"><label class="form-check-label"><input type="checkbox" class="form-check-input check-duplicado" th:disabled="!${evento?.id}" th:evid="${evento?.id}"> Desea duplicar evento?</label></div>
+
+
+                                    </li>
+                                    
+                                    <li class="nav-item-divider nav-item"></li>
+
+                                    
+                                    
+
+                                </ul>
+                            </div>
+                        </div>
+                    		
+                    		</form>
+                    		</div>
+            
+                
+
+	
+
+	
+	</div>
+	
+	
+	
+	
+	
+	<div layout:fragment="content_footer">
+	
+	
+		
+	
+	
+	</div>
+
+</body>
+</html>

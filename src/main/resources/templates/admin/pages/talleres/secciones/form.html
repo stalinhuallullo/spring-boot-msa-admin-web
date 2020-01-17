@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html 
+xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{admin/layouts/principal/principalLayout}" th:with="greeting='Hello!'">
+
+
+
+
+<th:block layout:fragment="html_head">
+
+
+
+	<script th:src="${@helper.assets('jsc/talleres/secciones.jquery.js')}"></script>
+	
+	<script th:src="${@helper.assets('jsc/moment.min.js')}"></script>
+	<script th:src="${@helper.assets('jsc/daterangepicker.min.js')}"></script>
+		
+	<link th:href="${@helper.assets('css/daterangepicker.min.css')}" rel="stylesheet" />
+	<link th:href="${@helper.assets('css/summernote.css')}" rel="stylesheet" />
+
+	<script th:src="${@helper.assets('jsc/summernote.min.js')}"></script>
+	<script th:src="${@helper.assets('jsc/jquery.inputmask.min.js')}"></script>
+	
+	<style>
+		.ui-state-highlight { border:1px dotted #ccc }
+		.tabs-lg-alternate.card-header>.nav .nav-link{padding: 1.1rem 0; }
+
+		.t-label {width:94px;}
+		.app-inner-layout__content em {margin-left:80px;}
+		.u-lnk {    border: 0;  background: transparent;  padding: 0;}
+		.btn-border-l {border-left: 1px solid rgba(0, 0, 0, 0.2);}
+		.btn-add {font-size: 1rem;}
+		.col-pixel-width-100 { flex: 0 0 100px; }
+		
+
+		.input-group > .select2-container--bootstrap4 {width: auto  !important;flex: 1 1 auto;}
+		.input-group > .select2-container--bootstrap4 .select2-selection--single {
+		    height: 100%;
+		    line-height: inherit;
+		    padding: 0.5rem 1rem;
+		}
+	</style>
+
+	      <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+</th:block>
+
+
+<body>
+
+
+	<div layout:fragment="content" class="form-article">
+	
+
+        
+                    <div class="app-inner-layout">
+                    
+                    
+                    
+                        <div class="app-inner-layout__header bg-heavy-rain">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div class="page-title-icon">
+                                            <i class="metismenu-icon pe-7s-date"></i>
+                                        </div>
+                                        <div>Secciones de Talleres
+                                            <div class="page-title-subheading">Creación/Edición de secciones
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+
+                                    
+                                    <div class="page-title-actions">
+
+                                        <div class="d-inline-block">
+                                            <a th:href="${@helper.baseUrl('noticias')}" class="btn-shadow btn btn-secondary">
+                                                <span class="btn-icon-plus pr-2">
+                                                    <i class="fa fa-arrow-left fa-w-20"></i>
+                                                </span>
+                                                ATRÁS
+                                            </a>
+                                                
+                                                <button type="button" class="btn-shadow btn btn-success btn-guardar-noticia">
+                                                <span class="btn-icon-plus pr-2">
+                                                    <i class="fa fa-save fa-w-20"></i>
+                                                </span>
+                                                GUARDAR
+                                            </button>
+
+                                        </div>
+                                    </div>    </div>
+                            </div>                </div>
+                            
+                            
+                            
+                            <form method="post" action="" id="form-noticia" class="form-noticia">
+                            <input type="hidden" id="id" name="id"  th:value="${noticia?.id}">
+                        <div class="app-inner-layout__wrapper">
+                            <div class="app-inner-layout__content card">
+                                <div>
+                                    <div class="app-inner-layout__top-pane">
+
+									<div class="mt-2" style="width:100%">
+									
+									
+									
+	<div class="form-row">
+	
+		<div class="col-md-5">
+			<div class="input-group">
+				<div class="input-group-prepend"><span class="input-group-text t-label">Temporada</span></div>							    
+				<select class="custom-select select2" id="temporada" name="temporada">        <option value="169">TORRES, JHONNY</option>
+                                                                                              <option value="159">TORRES DIOSES, SHARLES ALEJANDRO</option>
+                                                                                              <option value="170">TORRES SILVA, EISER</option>
+                                                                                              <option value="171">UGARTE RAMOS, ALFONSO</option>
+                                                                                              <option value="172">ULFE TINEDO, ARNOLD</option>
+                                                                                              <option value="173">UNOCC UNOCC, ALBERTO</option>
+                                                                                              <option value="174">VALDELOMAR RODRIGUEZ, JESUS ANTONIO</option>
+                                                                                              <option value="176">VALENCIA RODRIGUEZ, ELMER DANILO</option>
+                                                                                              <option value="175">VALERO AGUAYO, LUCIO</option>
+                                                                                              <option value="177">VALLE LIMA, CARLOS ALBERTO</option>
+                                                                                              <option value="178">VARGAS ARQUINIO, EDDY SANTIAGO</option>
+                                                                                              <option value="179">VARGAS NEYRA, MARTIN</option>
+                                                                                              <option value="180">VASQUEZ CONDOR, ALEJANDRO</option>
+                                                                                              <option value="181">VASQUEZ ROJAS, CARLOS ALFREDO</option>
+                                                                                              <option value="182">VEGA LUQUE, LUIS ALBERTO</option></select>
+				<div class="input-group-append">
+				    <button class="btn btn-secondary btn-add" type="button" id="button-addon2"><i class="fa fa-plus fa-w-20"></i></button>
+				</div>
+			</div>
+	    </div>
+	    
+	    
+		<div class="col-md-7">
+			<div class="input-group">
+				<div class="input-group-prepend"><span class="input-group-text t-label">Taller</span></div>							    
+				<select class="custom-select"><option>Seleccionar ...</option></select>
+				<div class="input-group-append">
+				    <button class="btn btn-secondary btn-add" type="button" id="button-addon2" data-toggle="modal" data-target="#form-taller-modal"><i class="fa fa-plus fa-w-20"></i></button>
+				</div>
+			</div>
+	    </div>
+	    
+  </div>
+									
+									
+									
+	<div class="form-row pt-2">
+	
+		<div class="col-md-5">
+			<div class="input-group">
+				<div class="input-group-prepend"><span class="input-group-text t-label">Categoría</span></div>							    
+				<select class="custom-select"><option>Seleccionar ...</option></select>
+				<div class="input-group-append">
+				    <button class="btn btn-secondary btn-add" type="button" id="button-addon2"><i class="fa fa-plus fa-w-20"></i></button>
+				</div>
+			</div>
+	    </div>
+	    
+	    
+		<div class="col-md-7">
+			<div class="input-group">
+				<div class="input-group-prepend"><span class="input-group-text t-label">Profesor</span></div>							    
+				<select class="custom-select"><option>Seleccionar ...</option></select>
+				<div class="input-group-append">
+				    <button class="btn btn-secondary btn-add" type="button" id="button-addon2"><i class="fa fa-plus fa-w-20"></i></button>
+				</div>
+			</div>
+	    </div>
+	    
+  </div>
+			
+	
+<div class="form-row pt-2">
+<div class="col-md-12">
+			<div class="input-group">
+				<div class="input-group-prepend"><span class="input-group-text t-label">Lugar</span></div>
+				<select class="custom-select"><option>Seleccionar ...</option></select>
+				<div class="input-group-append">
+					<button class="btn btn-secondary btn-add" type="button" id="button-addon2"><i class="fa fa-plus-circle fa-w-40"></i></button>
+					<button class="btn btn-secondary btn-border-l" type="button" id="button-addon2"><i class="fa fa-map-marker fa-w-20"></i> Elegir mapa</button>
+				</div>
+			</div>                    
+</div>
+</div>
+<hr />
+<div class="form-row ">
+<div class="col-md-12 list-hrs">
+
+<label for="basic-url">Horarios</label>
+
+
+	<div class="fila form-row mt-1">
+	
+		<div class="col-md-5">
+			<div class="input-group">
+				<div class="input-group-prepend"><span class="input-group-text t-label">Día</span></div>							    
+				<select class="custom-select"><option>Seleccione</option><option>Lunes</option><option>Martes</option><option>Miércoles</option><option>Jueves</option><option>Viernes</option><option>Sábado</option><option>Domingo</option></select>
+			</div>
+	    </div>
+	    
+	    
+		<div class="col-md-5">
+			<div class="input-group">
+				<div class="input-group-prepend"><span class="input-group-text t-label">Horario</span></div>							    
+				<input class="form-control input-group-append inp-hora"><input class="form-control input-group-append inp-hora">
+			</div>
+	    </div>
+        <div class="col-md-2">
+				<div class="btn-opc input-group-append">
+					<button class="btn btn-hover-shine btn-dark delete-horario btn-add col" type="button" id="button-addon2"><i class="fa fa-trash fa-w-40"></i></button> 
+					<button class="btn btn-hover-shine btn-success add-horario btn-border-l ml-1 col" type="button" id="button-addon2"><i class="fa fa-plus fa-w-40"></i></button>
+				</div>
+        </div>
+
+  </div>
+            
+</div>
+</div>
+<hr />
+										
+
+									</div>
+			                            
+                                       
+
+                                    </div>
+                                    <div class="bg-white" style="padding: 2px 25px;">
+                                           <div id="summernote" th:utext="${noticia?.contenido}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="app-inner-layout__sidebar card">
+                                <ul class="nav flex-column">
+
+
+                                    <li class="pt-3 nav-item-header nav-item">N° de Cupos</li>
+
+                                    <li class="nav-item-btn text-center nav-item">
+								      <input class="form-control" />
+                                    </li>
+                                    <li class="nav-item-divider nav-item"></li>
+                                    <li class="pt-3 nav-item-header nav-item">Fecha disponible</li>
+
+                                    <li class="nav-item-btn text-center nav-item">
+										<input type="text" class="form-control" id="url_youtube" name="url_youtube" placeholder="Rango de fecha" th:value="${seccion?.url_youtube}">
+                                    </li>
+                                    
+                                    
+                                    <li class="nav-item-divider nav-item"></li>
+                                    <li class="nav-item-header nav-item">Imagen Destacada</li>
+                                    <li class="nav-item-btn text-center nav-item">
+                                    
+                                    
+
+                                        
+                                    <button type="button" class="mt-1 btn-wide btn-pill btn btn-secondary btn-sm btn-explorar">Galería de imágenes</button>
+                                        
+                                        
+                                    </li>
+                                    <li class="nav-item-divider nav-item"></li>
+                                    
+                                    <li class="pt-3 nav-item-header nav-item">Duplicar</li>
+
+                                    <li class="nav-item-btn text-center nav-item">
+											<div class="form-check form-check-inline"><label class="form-check-label"><input type="checkbox" class="form-check-input check-duplicado" th:disabled="!${evento?.id}" th:evid="${evento?.id}"> Desea duplicar evento?</label></div>
+                                    </li>
+                                    
+                                    <li class="nav-item-divider nav-item"></li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    		
+                    		</form>
+                    		</div>
+            
+                
+
+	
+
+	
+	</div>
+	
+	
+	
+	
+	
+
+
+	<div layout:fragment="content_footer">
+	
+		<div th:replace="admin/fragments/talleres/taller :: taller_form"></div>
+	
+<script>
+        $('.select2').select2({
+            placeholder: 'Seleccione ...',
+            allowClear: true,
+            theme: 'bootstrap4',
+            
+         });
+    </script>
+	</div>
+
+
+
+
+
+</body>
+</html>
