@@ -54,7 +54,6 @@ public class ResolucionesController {
 		ArrayList<?> jArrayArea = resoluciones.area();
 		Object obj = resoluciones.buscarResolucion(id);
 		
-		System.out.println("obj  ==> " + obj);
 		model.addAttribute("tipo", jArrayTipo);
 		model.addAttribute("area", jArrayArea);
 		model.addAttribute("resolucion", obj);

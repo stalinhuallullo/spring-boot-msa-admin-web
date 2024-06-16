@@ -10,7 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @Component
 public class Constant {
 	
-	public static final String PRINCIPAL_URL = "http://localhost:4141/"; //http://localhost:4141/   http://172.16.36.10:8080/
+	public static final String PRINCIPAL_URL = "http://172.16.36.20/"; //http://localhost:4141/   http://172.16.36.10:8080/
 	public static final String BASE_URL = PRINCIPAL_URL + "AdminWeb/";
 	public static final String ASSETS = BASE_URL + "cdn/admin/";
 	
@@ -19,7 +19,7 @@ public class Constant {
 	
 	public static final String URL_SERVER_CDN_DTA = "data/"; //http://172.16.36.47:8080/
 	
-	public static final String URL_SERVER_CDN_URL = "http://172.16.36.41/" + URL_SERVER_CDN_DTA; //http://localhost:8080/    //http://172.16.36.41/
+	public static final String URL_SERVER_CDN_URL = PRINCIPAL_URL + URL_SERVER_CDN_DTA; //http://localhost:8080/    //http://172.16.36.41/
 	
 	
 	public static final String DIR_UPLOAD_NOTICIAS_GALERIA = "/web/noticias/galeria/";
@@ -71,7 +71,7 @@ public class Constant {
     	        put(API_EVENTOS_NOMBRE,  			"http://172.16.36.10:8080/"); //http://localhost:4545/
     	        put(API_RESOLUCIONES_NOMBRE,  		"http://172.16.36.10:8080/"); //http://localhost:8080/
     	        put(API_TALLERES_NOMBRE,  			"http://172.16.36.10:8080/"); //http://localhost:8080/
-    	        put(API_ARCHIVOS_NOMBRE,  			"http://172.16.36.41/"); //http://localhost:8080/
+    	        put(API_ARCHIVOS_NOMBRE,  			"http://172.16.36.20/"); //http://localhost:8080/
     	    }});
     
 	
